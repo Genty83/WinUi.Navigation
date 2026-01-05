@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+		<UseWinUI>true</UseWinUI>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- NuGet metadata -->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>WinUi.Navigation</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Craig</Authors>
+		<Description>A modular, attribute-driven navigation framework for WinUI 3.</Description>
+		<PackageTags>WinUI;Navigation;UI;Toolkit</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/Genty83/WinUi.Navigation</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/Genty83/WinUi.Navigation</PackageProjectUrl>
+
+		<!-- Documentation -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+	</ItemGroup>
+
+</Project>

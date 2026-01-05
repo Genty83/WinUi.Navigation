@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../SampleApp/SampleApp.csproj">
+    <Platform Project="x64" />
+    <Deploy />
+  </Project>
+  <Project Path="../src/WinUi.Navigation/WinUi.Navigation.csproj" />
+</Solution>

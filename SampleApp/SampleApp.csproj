@@ -13,6 +13,12 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Apps\HomeApp\Views\HomePage.xaml" />
+    <None Remove="Apps\ProjectsApp\Views\NewProjectPage.xaml" />
+    <None Remove="Apps\ProjectsApp\Views\ProjectsPage.xaml" />
+    <None Remove="Apps\SettingsApp\Views\SettingsPage.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -39,6 +45,32 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Shell\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\WinUi.Navigation\WinUi.Navigation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Apps\ProjectsApp\Views\NewProjectPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Apps\ProjectsApp\Views\ProjectsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Apps\SettingsApp\Views\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Apps\HomeApp\Views\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

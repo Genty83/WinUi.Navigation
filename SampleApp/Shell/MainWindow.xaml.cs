@@ -1,14 +1,11 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using WinUi.Navigation.Registry;
-using WinUi.Navigation.Services;
 
 namespace SampleApp.Shell
 {
     public sealed partial class MainWindow : Window
     {
-        private readonly INavigationService _navigation;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -36,8 +33,7 @@ namespace SampleApp.Shell
 
         private void GoBack(TitleBar sender, object args)
         {
-            var nav = NavigationRegistry.Instance;
-            nav.Service.GoBack();
+            NavigationRegistry.Instance.Service.GoBack();
         }
     }
 }

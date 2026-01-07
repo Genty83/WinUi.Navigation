@@ -15,50 +15,16 @@ namespace WinUi.Navigation.Discovery
     /// <see cref="NavigationPageAttribute"/> and produces a collection of
     /// <see cref="NavigationModel"/> instances.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// Discovery behavior can be customized using <see cref="NavigationOptions"/>,
-    /// allowing applications to restrict scanning to specific namespaces. This makes
-    /// the navigation system portable across projects with different folder or
-    /// namespace structures (e.g., <c>Apps/</c>, <c>Pages/</c>, <c>Views/</c>,
-    /// <c>Modules/</c>, etc.).
-    /// </para>
-    ///
-    /// <para>
-    /// Only types that:
-    /// </para>
-    /// <list type="bullet">
-    /// <item><description>derive from <see cref="Page"/></description></item>
-    /// <item><description>are non-abstract</description></item>
-    /// <item><description>are decorated with <see cref="NavigationPageAttribute"/></description></item>
-    /// </list>
-    /// <para>
-    /// are included in the discovery results.
-    /// </para>
-    /// </remarks>
     public static class NavigationDiscovery
     {
         /// <summary>
         /// Discovers all navigable pages in the application's entry assembly,
         /// applying optional namespace filtering based on the provided options.
         /// </summary>
-        /// <param name="options">
-        /// The navigation options controlling discovery behavior. If <c>null</c>,
-        /// all namespaces are included.
-        /// </param>
-        /// <returns>
-        /// A list of <see cref="NavigationModel"/> instances representing all
-        /// discovered pages.
-        /// </returns>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if a type is decorated with <see cref="NavigationPageAttribute"/>
-        /// but does not derive from <see cref="Page"/>.
-        /// </exception>
         public static List<NavigationModel> Discover(NavigationOptions? options)
         {
             options ??= new NavigationOptions();
 
-            // The entry assembly is assumed to contain the application's pages.
             var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
 
             // Step 1: Find all Page-derived types
@@ -79,25 +45,37 @@ namespace WinUi.Navigation.Discovery
             }
 
             // Step 3: Extract attribute metadata and build NavigationModel instances
-            return types
+            return [.. types
                 .Select(t => (Type: t, Attr: t.GetCustomAttribute<NavigationPageAttribute>()))
                 .Where(x => x.Attr != null)
-                .Select(x => new NavigationModel
+                .Select(x =>
                 {
-                    Id = x.Attr!.Id,
-                    ParentId = x.Attr.ParentId,
-                    Title = x.Attr.Title,
-                    Icon = x.Attr.Icon,
-                    Order = x.Attr.Order,
-                    HeaderText = x.Attr.HeaderText,
-                    IsFooterItem = x.Attr.IsFooterItem,
-                    SeparatorBefore = x.Attr.SeparatorBefore,
-                    SeparatorAfter = x.Attr.SeparatorAfter,
-                    PageType = x.Type
+                    var attr = x.Attr!;
+
+                    // Symbol-only icon factory
+                    Func<IconElement>? iconFactory = () => new SymbolIcon(attr.Icon);
+
+                    return new NavigationModel
+                    {
+                        Id = attr.Id,
+                        ParentId = attr.ParentId,
+                        Title = attr.Title,
+                        Order = attr.Order,
+                        HeaderText = attr.HeaderText,
+                        IsFooterItem = attr.IsFooterItem,
+                        SeparatorBefore = attr.SeparatorBefore,
+                        SeparatorAfter = attr.SeparatorAfter,
+                        PageType = x.Type,
+
+                        // Symbol-only metadata
+                        IconSymbol = attr.Icon,
+
+                        // Final icon factory
+                        IconFactory = iconFactory
+                    };
                 })
                 .OrderBy(x => x.ParentId)
-                .ThenBy(x => x.Order)
-                .ToList();
+                .ThenBy(x => x.Order)];
         }
     }
 }

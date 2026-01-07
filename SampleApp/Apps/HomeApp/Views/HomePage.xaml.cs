@@ -1,5 +1,4 @@
 using System;
-
 using WinUi.Navigation.Attributes;
 using Microsoft.UI.Xaml.Controls;
 

@@ -1,12 +1,14 @@
 ﻿using System;
 using Microsoft.UI.Xaml.Controls;
+using WinUi.Navigation.Attributes;
+using WinUi.Navigation.Services;
 
 namespace WinUi.Navigation.Models
 {
     /// <summary>
-    /// Represents a single navigable page discovered by the navigation system.
-    /// This model is populated from <see cref="NavigationPageAttribute"/> metadata
-    /// and consumed by the navigation builder, registry, and service.
+    /// Represents a single navigable page discovered by the WinUi.Navigation system.
+    /// Instances of this model are created from <see cref="NavigationPageAttribute"/>
+    /// metadata and consumed by the navigation builder, registry, and service.
     /// </summary>
     public sealed class NavigationModel
     {
@@ -18,19 +20,19 @@ namespace WinUi.Navigation.Models
 
         /// <summary>
         /// Gets the identifier of the parent page, if any.
-        /// When set, this page will be nested under its parent in the NavigationView.
+        /// When set, this page will be nested under its parent in the navigation hierarchy.
         /// </summary>
         public string? ParentId { get; init; }
 
         /// <summary>
-        /// Gets the display title shown in the NavigationView.
+        /// Gets the display title shown in the navigation UI.
         /// </summary>
         public string Title { get; init; } = string.Empty;
 
         /// <summary>
-        /// Gets the icon displayed alongside the title in the NavigationView.
+        /// Optional SymbolIcon value if provided by the attribute.
         /// </summary>
-        public Symbol Icon { get; init; }
+        public Symbol? IconSymbol { get; init; }
 
         /// <summary>
         /// Gets the ordering value used to sort pages within the same parent group.
@@ -39,7 +41,7 @@ namespace WinUi.Navigation.Models
         public int Order { get; init; }
 
         /// <summary>
-        /// Gets optional header text that appears above this item in the NavigationView.
+        /// Gets optional header text that appears above this item in the navigation UI.
         /// Useful for grouping related pages.
         /// </summary>
         public string? HeaderText { get; init; }

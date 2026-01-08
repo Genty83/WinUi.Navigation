@@ -50,7 +50,10 @@ namespace WinUi.Navigation.Builders
                 var navItem = new NavigationViewItem
                 {
                     Content = model.Title,
-                    Tag = model.Id
+                    Tag = model.Id,
+                    Icon = model.Icon is not null
+                        ? new SymbolIcon(model.Icon.Value)
+                        : null
                 };
 
                 // Nesting logic

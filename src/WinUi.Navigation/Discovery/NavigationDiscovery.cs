@@ -52,26 +52,18 @@ namespace WinUi.Navigation.Discovery
                 {
                     var attr = x.Attr!;
 
-                    // Symbol-only icon factory
-                    Func<IconElement>? iconFactory = () => new SymbolIcon(attr.Icon);
-
                     return new NavigationModel
                     {
                         Id = attr.Id,
                         ParentId = attr.ParentId,
                         Title = attr.Title,
+                        Icon = attr.Icon,
                         Order = attr.Order,
                         HeaderText = attr.HeaderText,
                         IsFooterItem = attr.IsFooterItem,
                         SeparatorBefore = attr.SeparatorBefore,
                         SeparatorAfter = attr.SeparatorAfter,
                         PageType = x.Type,
-
-                        // Symbol-only metadata
-                        IconSymbol = attr.Icon,
-
-                        // Final icon factory
-                        IconFactory = iconFactory
                     };
                 })
                 .OrderBy(x => x.ParentId)

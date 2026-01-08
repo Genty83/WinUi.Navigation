@@ -32,7 +32,7 @@ namespace WinUi.Navigation.Models
         /// <summary>
         /// Optional SymbolIcon value if provided by the attribute.
         /// </summary>
-        public Symbol? IconSymbol { get; init; }
+        public Symbol? Icon { get; init; }
 
         /// <summary>
         /// Gets the ordering value used to sort pages within the same parent group.
